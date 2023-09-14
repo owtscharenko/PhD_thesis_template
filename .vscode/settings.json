@@ -1,0 +1,84 @@
+{
+    "latex-workshop.latex.clean.subfolder.enabled": false,
+    "latex-workshop.latex.tools": [
+
+        {
+            "name": "biber",
+            "command": "biber",
+            "args": [
+                "%DOCFILE%"
+            ]
+        },
+        {
+            "name": "pdflatex",
+            "command": "pdflatex",
+            "args": [
+                "--shell-escape", // if you want to have the shell-escape flag
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "%DOC%.tex"
+            ]
+        },
+        {
+            "name": "latexmk",
+            "command": "latexmk",
+            "args": [
+              "-synctex=1",
+              "-interaction=nonstopmode",
+              "-file-line-error",
+              "-pdf",
+              "-outdir=%OUTDIR%",
+              "%DOC%"
+            ],
+            "env": {}
+          },
+          {
+            "name": "makeglossaries",
+            "command": "makeglossaries",
+            "args": [
+              "%DOCFILE%"
+            ]
+          },
+    ],
+    "latex-workshop.latex.recipes": [
+        
+        {
+            "name": "pdflatex x2",
+            "tools": [
+                "pdflatex",
+                "pdflatex"
+            ]
+        },
+        // {
+        //     "name": "latexmk 🔃",
+        //     "tools": [
+        //         "latexmk"
+        //     ]
+        // },
+        // {
+        //     "name": "pdflatex ➞ bibtex ➞ pdflatex × 2",
+        //     "tools": [
+        //         "pdflatex",
+        //         "bibtex",
+        //         "makeglossaries",
+        //         "pdflatex",
+        //         "pdflatex"
+        //     ]
+        // },
+        {
+            "name": "pdflatex ➞ biber ➞ pdflatex × 2",
+            "tools": [
+                "pdflatex",
+                "biber",
+                "makeglossaries",
+                "pdflatex",
+                "pdflatex"
+            ],
+        },
+    ],
+    "editor.wordWrap": "on",
+    "ltex.language": "en-GB",
+    "latex-workshop.latex.autoBuild.run": "onSave",
+    "latex-workshop.latex.autoClean.run": "onFailed"
+}

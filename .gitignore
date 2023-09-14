@@ -1,0 +1,21 @@
+# *.jpg
+# *.pdf
+Main.pdf
+*.eps
+*.aux
+*.toc
+*.acn
+*.glo
+*.out
+*.ist
+*.xml
+*.gz
+*.log
+*.bcf
+*.blg
+*.bbl
+*.gls
+*.glg
+*.acr
+*.alg
+.DS_Store

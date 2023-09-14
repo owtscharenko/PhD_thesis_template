@@ -1,0 +1,306 @@
+%% Basierend auf einer TeXnicCenter-Vorlage von Tino Weinkauf.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% HEADER
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper, twoside, english, 11pt, DIV=12, BCOR=1cm, headsepline, listof=totoc, bibliography=totoc]{scrbook}
+
+%% Deutsche Anpassungen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[british]{babel}
+\babelhyphenation[british]{time-stamp}
+\usepackage[utf8]{inputenc}    % utf8 support
+\usepackage{pgfplots}
+\usepackage[]{listings}
+\usepackage[T1]{fontenc}
+\usepackage[backend=biber, sorting = none, maxcitenames=3, citestyle=numeric-comp, bibencoding=utf8, firstinits=true, isbn=false, block = space]{biblatex} % style=numeric,
+\usepackage[babel]{microtype}
+
+\renewcommand*{\multicitedelim}{\addsemicolon\space}
+\usepackage[]{owtscharenko-bibstyle}
+\usepackage[colorlinks=true, hyperfootnotes=false]{hyperref} % linkcolor = blue
+\usepackage[toc, automake, style=long3col, indexonlyfirst, acronym, nomain]{{glossaries-extra}}  % , To have acronyms and glossary
+\usepackage{mfirstuc-english}
+\glssetcategoryattribute{acronym}{glossdesc}{title}
+\MFUhyphenfalse
+\MFUnocap{to}
+\MFUnocap{of}
+\MFUnocap{the}
+\MFUnocap{in}
+\MFUnocap{on}
+\MFUnocap{at}
+\MFUnocap{for}
+\MFUnocap{and}
+\MFUnocap{over}
+\MFUnocap{module}
+% \Addlcwords{to}
+% \Addlcwords{the}
+% \Addlcwords{of}
+% \renewcommand\titlecap[1]{#1}
+
+% 
+%\usepackage{gensymb}}
+\usepackage{currvita}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{parskip}
+\setlength{\parindent}{0pt}
+\usepackage[displaymath, running]{lineno}
+
+\usepackage{etoolbox} %% <- for \cspreto, \csappto
+
+% Patch 'normal' math environments:
+\newcommand*\linenomathpatch[1]{%
+  \cspreto{#1}{\linenomath}%
+  \cspreto{#1*}{\linenomath}%
+  \csappto{end#1}{\endlinenomath}%
+  \csappto{end#1*}{\endlinenomath}%
+}
+
+\linenomathpatch{equation}
+\linenomathpatch{gather}
+\linenomathpatch{multline}
+\linenomathpatch{align}
+\linenomathpatch{alignat}
+\linenomathpatch{flalign}
+
+
+%\usepackage{gensymb}
+\usepackage[font=normalsize, format=plain, labelfont=bf]{caption}
+\usepackage{subcaption}  % for subfigures
+\usepackage{setspace} % onehalfspacing
+\usepackage{scrlayer-scrpage} % Kopf- und Fusszeilen-Format mit KOMA-Script
+\usepackage{lmodern} %Type1-Schriftart for non-english texts
+\DeclareFontFamily{OMX}{lmex}{}
+\DeclareFontShape{OMX}{lmex}{m}{n}{%
+   <->lmex10%  was  <->sfixed*lmex10%
+   }{}
+\usepackage{isotope} % isotopes printing
+\usepackage[toc]{appendix} %,page
+\usepackage{multirow}
+\usepackage{multicol}  % equation next to each other
+\usepackage{pgf} % matlotlib plots with tex links
+\usepackage{ctable} % for \specialrule command
+\usepackage{footnote}  % footnotes in tables
+\usepackage{enumitem}  % no margin in itemize
+\usepackage{empheq}  % box around equation
+\usepackage[]{todonotes}
+\usepackage[nameinlink]{cleveref}
+\makesavenoteenv{table}
+\makesavenoteenv{tabular}
+
+\setabbreviationstyle[acronym]{long-short}
+\loadglsentries{glossary.tex} % file with acronyms
+\glssetcategoryattribute{acronym}{glossdesc}{title}
+\MFUhyphentrue
+\makeglossaries
+
+% counter for footnotes monotonically increasing across the whole document
+% \counterwithout{footnote}{chapter}
+\renewcommand{\autodot}{}% Remove all end-of-counter dots
+
+%% Header and Footer
+\pagestyle{scrheadings}
+\clearscrheadfoot
+\automark{chapter}
+\ihead{\headmark}
+\cfoot{\pagemark}
+
+%% Packages for Formula %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[binary-units=truem, separate-uncertainty=true]{siunitx} %SI Einheiten
+\sisetup{detect-all}
+% range-units=single, range-phrase= 
+%\sisetup{separate-uncertainty}
+\usepackage{bigints} % bigints loads amsmath
+% \usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{nicefrac, xfrac}
+
+%% Zeilenabstand %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{setspace}
+% \usepackage{times} 
+%\singlespacing        %% 1-zeilig (Standard)
+\onehalfspacing       %% 1,5-zeilig
+% \doublespacing        %% 2-zeilig
+
+%% DRAFT Wasserzeichen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \usepackage{background}
+% \backgroundsetup{contents=DRAFT, color=blue!20}
+% \linenumbers
+
+%% Own declarations
+\DeclareMathOperator\erf{erf}
+\DeclareMathOperator\erfi{erfi}
+
+\newcommand{\noi}{\noindent}
+\newcommand{\boxedeq}[2]{\begin{empheq}[box={\fboxsep=6pt\fbox}]{align}\label{#1}#2\end{empheq}}
+\renewcommand*\descriptionlabel[1]{\hspace\leftmargin$#1$}
+
+\newcommand{\nocontentsline}[3]{}
+\newcommand{\tocless}[2]{\bgroup\let\addcontentsline=\nocontentsline#1{#2}\egroup}
+\renewcommand*{\acrshort}[1][]{\glsxtrshort[noindex,#1]}
+
+\newlength{\figurewidth}
+\newlength{\figureheigth}
+\newlength{\tikzwidth}
+\newlength{\tikzheigth}
+\newlength{\subfigurewidth}
+\newlength{\subsubfigurewidth}
+\setlength{\figurewidth}{0.8\textwidth}
+\setlength{\figureheigth}{0.61804697157\textwidth}  % golden ratio
+\setlength{\subfigurewidth}{0.43\textwidth}
+\setlength{\subsubfigurewidth}{0.33\textwidth}
+
+% \renewcommand{\textfraction}{0.01}
+% \renewcommand{\floatpagefraction}{.1}  % figure only page when more than 10% us used by it
+% \renewcommand{\textfraction}{0.2} % minimum amount of page which has to be text
+% \renewcommand{\floatpagefraction}{.75}  % figure only page when more than 75% us used by it
+
+
+% \DeclareSIUnit[]\kursmum{\mu m}
+\DeclareSIUnit[]\kursmum{\micro\meter}
+\DeclareSIUnit\year{yr}
+\DeclareSIUnit\rad{rad}
+\DeclareSIUnit\dac{DAC}
+\DeclareSIUnit\neq{\mathrm{n}_{\mathrm{eq}}\,\mathrm{cm^{-2}}}
+\DeclareSIUnit\permille{\text{\textperthousand}}
+\DeclareSIUnit\ehpair{\text{e-h}}
+\DeclareSIUnit{\nothing}{\relax}
+\DeclareSIUnit\barn{b}
+\DeclareSIUnit{\Cmicro}{\SI{100}{\kursmum}}
+\DeclareSIUnit\clight{\text{\ensuremath{c}}}
+\DeclareSIUnit[per-mode=symbol]\GeVc{\giga\electronvolt\per\clight}
+\DeclareSIUnit\csq{\clight\squared}
+\DeclareSIUnit[per-mode=symbol]\GeVcsq{\giga\electronvolt\per\csq}
+\DeclareSIUnit[]\electron{e^{-}}
+
+
+\newcommand{\figref}[1]{Figure~\ref{#1}}
+\newcommand{\secref}[1]{Section~\ref{#1}}
+\newcommand{\chapref}[1]{Chapter~\ref{#1}}
+\newcommand{\eqnref}[1]{Equation~\eqref{#1}}
+\newcommand{\appref}[1]{Appendix~\ref{#1}}
+\newcommand{\tabref}[1]{Table~\ref{#1}}
+\newcommand*{\Boltzmann}{k_B}
+\Crefname{pluralequation}{Equations}{Equations}
+
+%% Settings %%
+\hypersetup{
+  colorlinks=True,  % comment for printing
+  citecolor=[rgb]{0.282623, 0.140926, 0.457517},  % viridis darkslateblue
+  linkcolor=[rgb]{0.282623, 0.140926, 0.457517},  % viridis darkslateblue
+  urlcolor=[rgb]{0.282623, 0.140926, 0.457517}  % viridis darkslateblue
+  }
+  % \hypersetup{
+  % colorlinks=True,  % comment for printing
+  % citecolor=[rgb]{0.0, 0.0, 0.0},  % viridis darkslateblue
+  % linkcolor=[rgb]{0.0, 0.0, 0.0},  % viridis darkslateblue
+  % urlcolor=[rgb]{0.0, 0.0, 0.0}  % viridis darkslateblue
+  % }
+\addbibresource{PhD_thesis.bib}
+\graphicspath{{./figures/}}
+
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    % backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4
+}
+\widowpenalty=10000
+\clubpenalty=10000
+\lstset{style=mystyle}
+
+%\input{Glossary.tex}
+\hypersetup{breaklinks=true}
+\sisetup{range-phrase=%
+ \ifmmode\mathbin{-}
+ \else
+  \thinspace\textendash\thinspace
+ \fi%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% DOKUMENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand*{\handInInstitute}{Eingereicht bei der Naturwissenschaftlich-Technischen Fakultät \\ der Universität Siegen }
+\author{vorgelegt von \\ Nikolaus G. G. Owtscharenko\\
+aus \textit{some city} \vspace{30mm} \\ \handInInstitute}
+
+\title{Your thesis title\\}
+\subtitle{\vspace{20mm} DISSERTATION \\
+	zur Erlangung des Grades eines Doktors \\
+	der Naturwissenschaften \\
+	\vspace{15mm}
+	%\includegraphics*[scale=0.57]{Graphics/Cover_tiny.jpg}	%  kleines logo
+}
+\date{2023}
+
+\newcommand{\thesisabstract}{
+The abstract in english, should not exceed one DIN-A4 page.
+}
+
+\newcommand{\thesisabstractGerman}{
+Das gleiche gilt für die deutsche Kurzzusammenfassung.
+}
+
+\begin{document}
+\frontmatter
+\renewcommand{\glsnamefont}[1]{\textbf{#1}}
+%\include{./chapter/PhD_Cover}
+\maketitle  % COVER, only front side of title page
+
+\lowertitleback{
+  Betreuer und erster Gutachter: Prof. John Doe\\
+  Zweiter Gutachter: Prof. Jane Doe\\
+  Tag der mündlichen Prüfung: XX.XX.XXXX}
+\maketitle % second title including backside
+\section*{Abstract}
+\thesisabstract
+\newpage
+\section*{Zusammenfassung}
+\thesisabstractGerman
+
+
+\let\backupskip\chapterheadstartvskip
+\renewcommand*\chapterheadstartvskip{\vspace*{-\topskip}}
+\tableofcontents
+\let\chapterheadstartvskip\backupskip
+
+\newpage
+\mainmatter
+% \setcounter{page}{1}  % reset page counters
+\include{./chapter/introduction}
+\include{./chapter/Example_chapter}
+\include{./chapter/summary}
+%\setcounter{tocdepth}{0}  % do not show chapter in table of contents
+\include{./chapter/appendix}
+\setlength\LTleft{-5pt}
+\printglossary[title={Abbreviations}]
+\printbibliography
+\include{./chapter/acknowledge}
+\include{./chapter/cv}
+
+\end{document}

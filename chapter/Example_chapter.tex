@@ -1,0 +1,76 @@
+\chapter{This is a chapter}
+\label{ch:example}
+Some introductory text describing the chapter contents. Also, an example for citing a range of pages in a reference \cite[p.~2~ff]{AguilarBenitez1988}.\\
+The package \texttt{siunitx} provides an easy and foolproof solution for giving values with units and their uncertainties: $v_x = \pm\qty[per-mode=symbol]{2.610(5)}{\centi\meter\per\second}$. One can even define their own units as for example $\unit{Neq}$ or $\unit{GeVc}$.\\
+There is also a glossary. The \texttt{glossaries-extra} package will take care of formatting and keep score of whether and where the first mention of any abbreviation is placed. Example for the  "SPS": First mention \gls{sps}, second mention \gls{sps}. The abbreviations are defined in "glossary.tex" in the root folder.\\
+The project uses biber for bibliography management and the compilation procedure is:
+\begin{enumerate}
+    \item pdflatex,
+    \item bibtex,
+    \item "makeglossaries",
+    \item pdflatex,
+    \item pdflatex.
+\end{enumerate}
+
+I recommend the VS code editor\footnote{you can find it here: \href{https://code.visualstudio.com}{https://code.visualstudio.com}} with "LaTeX workshop" and "LTeX" extensions for writing. The VS code settings for the project are provided in the repository.\\
+I used jabref (\href{https://www.jabref.org}{https://www.jabref.org}) for reference management. It is possible to get a .bib file as output which can easily be linked in the latex project.
+
+\section{This is a section}
+\label{sec:example}
+
+\begin{table}
+    \renewcommand{\arraystretch}{1.8}
+    \begin{center}
+    % \begin{tabular}{>{\raggedright}p{2cm} >{\raggedright}p{2cm} >{\raggedright}p{1cm} >{\raggedright}p{1cm} >{\raggedright}p{1cm} >{\raggedright\arraybackslash}p{1cm}}
+    \begin{tabular}{ccccc >{\centering\arraybackslash}p{2.5cm}}
+    &\bfseries runs &\bfseries passive material &\bfseries ECC &\bfseries films &\bfseries integrated p.o.t. $\times 10^5 $\\
+    \hline
+    \bfseries CHARM 1 & 6 & -- & \qty[]{28}{\milli\meter} Pb/W + \num{29} films & 174 & 5.4 \\
+    \bfseries CHARM 2 & 6 & \qty[]{28}{\milli\meter} Pb & \qty[]{28}{\milli\meter} Pb + \num{29} films & 174 & 5.2 \\
+    \bfseries CHARM 3 & 3 & \qty[]{56}{\milli\meter} Pb & \qty[]{56}{\milli\meter} Pb + \num{57} films & 174 & 1.0 \\
+    \bfseries CHARM 4 & 3 & \qty[]{113}{\milli\meter} Pb & \qty[]{56}{\milli\meter} Pb + \num{57} films & 171 & 0.8 \\
+    \bfseries CHARM 5 & 3 & \qty[]{168}{\milli\meter} Pb & \qty[]{56}{\milli\meter} Pb + \num{57} films & 171 & 1.6 \\
+    \bfseries CHARM 6 & 3 & \qty[]{224}{\milli\meter} Pb & \qty[]{56}{\milli\meter} Pb + \num{57} films & 171 & 1.6 \\
+    \hline
+    \bfseries Total & 24 & & & 1032 & 15.6
+    \end{tabular}
+    \end{center}
+    \caption{An exemplary table.}
+    \label{tab:example}
+\end{table}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.49\textwidth]{"sm_left_handed"}
+    \includegraphics[width=0.49\textwidth]{"nuMSM.pdf"}
+    \caption{Example for two figure graphics. Figures from \cite[2]{Gninenko2013}}
+    \label{fig:example_two_fig}
+\end{figure}
+
+\section{Itemizing}
+\label{sec:itemizing_example}
+It is possible to make a list in the itemize environment without bullets: \Cref{subsec:track_fitting}:
+\begin{itemize}
+    \item[]\textbf{First item:}
+    \item[]\textbf{Second item:}
+\end{itemize}
+
+This is what an equation with label looks like:
+\begin{equation}
+    \sigma_\mathrm{proj}^2 = z^2 \cdot \sigma_\mathrm{slope}^2 + \sigma_\mathrm{pos}^2 + 2 z \cdot \sigma_\mathrm{slope/pos}
+    \label{eq:track_projection_sigma}
+\end{equation}
+
+With the \texttt{cleveref} package one can reference any label and the specific descriptor is automatically added, e.g. "Equation" for \Cref{eq:track_projection_sigma} and "Figure" for \Cref{fig:example_two_fig}.
+Matrices can be written like in the following \Cref{eg:matrix_example}.
+
+Where
+\begin{align}
+    \boldsymbol{\alpha} &= \begin{pmatrix}
+                    x \\
+                    y \\
+                    \theta_{xz}\\
+                    \theta_{yz}\\
+                   \end{pmatrix}
+\label{eg:matrix_example}
+\end{align}
